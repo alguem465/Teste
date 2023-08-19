@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App em tempo real</title>
+	<script src="https://cdn.socket.io/4.0.1/socket.io.js"></script>
+    
+    </head>
+    <body>
+      <h1>Teste de contagem hehe</h1>
+      <p>Contagem atual: <span id="contador">0</span></p>
+      <button id="adicionar">Adicionar</button>
+       <script src="/socket.io/socket.io.js"></script>
+       <script>
+         const socket = io()
+         
+         const atualizar = (n) => {
+           document.getElementById("contador").textContent = n
+         }
+         
+         document.addEventListener('DOMContentLoaded', () => {
+           socket.on('inicio', (n) => {
+             atualizar(n)
+           })
+           socket.on('atualizar', (n) => {
+             atualizar(n)
+           })
+           document.getElementById("adicionar").addEventListener('click', () => {
+             socket.emit('incrementar')
+           })
+         })
+       </script>
+    </body>
+    </html>
